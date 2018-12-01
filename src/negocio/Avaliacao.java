@@ -1,8 +1,4 @@
-package trocar;
-
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
+package negocio;
 
 public class Avaliacao {
 	private Aluno aluno;

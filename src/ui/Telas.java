@@ -1,8 +1,11 @@
-package trocar;
+package ui;
 
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import negocio.Aluno;
+import negocio.Disciplina;
 
 public class Telas {
 
@@ -45,5 +48,24 @@ public class Telas {
 		}
 		return JOptionPane.showInputDialog(retorno);
 	}
+	
 
+	
+/*
+	public void listaBoletim() {
+
+		for (int u = 0; u < curso.size(); u++) {
+			System.out.printf("Nome do Aluno: " + alunos.get(u).getNomeAluno() + "Código do Aluno: "
+					+ alunos.get(u).getCodAluno());
+
+			ArrayList<Disciplina> disciplinasAluno = alunos.get(u).getDisciplina();
+
+			for (Disciplina disciplina : disciplinasAluno) {
+				System.out.println("Disciplina do aluno" + disciplina.getNomeDisciplina());
+
+			}
+
+		}
+	}*/
+	
 }

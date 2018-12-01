@@ -1,4 +1,4 @@
-package trocar;
+package negocio;
 
 import javax.swing.JOptionPane;
 
@@ -42,5 +42,6 @@ public class Disciplina {
         disciplina.setNomeDisciplina((JOptionPane.showInputDialog("Digite o nome da disciplina:")));
         return disciplina;
 	}
+
 
 }
