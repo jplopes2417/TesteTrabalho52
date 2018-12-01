@@ -1,6 +1,6 @@
 package negocio;
 
-import javax.swing.JOptionPane;
+import java.util.List;
 
 public class Disciplina {
 
@@ -36,11 +36,9 @@ public class Disciplina {
 
 	}
 	
-	public Disciplina adicionarDisciplina() {
-		Disciplina disciplina = new Disciplina();
-		disciplina.setCodDisciplina((Integer.parseInt(JOptionPane.showInputDialog("Digite o código da disciplina:"))));
-        disciplina.setNomeDisciplina((JOptionPane.showInputDialog("Digite o nome da disciplina:")));
-        return disciplina;
+	public static Disciplina getDisciplinaPorCodigo(List<Disciplina> disciplinas, int codigoDisciplina) {
+		Disciplina disciplinaRetorno = disciplinas.stream().filter(d -> codigoDisciplina==(d.getCodDisciplina())).findAny().orElse(null);
+		return disciplinaRetorno;
 	}
 
 
