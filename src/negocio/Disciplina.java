@@ -6,8 +6,7 @@ public class Disciplina {
 
 	private int codDisciplina;
 	private String nomeDisciplina;
-	
-    
+
 	public Disciplina() {
 
 	}
@@ -16,7 +15,7 @@ public class Disciplina {
 
 		this.codDisciplina = codDisciplina;
 		this.nomeDisciplina = nomeDisciplina;
-		
+
 	}
 
 	public int getCodDisciplina() {
@@ -35,11 +34,11 @@ public class Disciplina {
 		this.nomeDisciplina = nomeDisciplina;
 
 	}
-	
+
 	public static Disciplina getDisciplinaPorCodigo(List<Disciplina> disciplinas, int codigoDisciplina) {
-		Disciplina disciplinaRetorno = disciplinas.stream().filter(d -> codigoDisciplina==(d.getCodDisciplina())).findAny().orElse(null);
+		Disciplina disciplinaRetorno = disciplinas.stream().filter(d -> codigoDisciplina == (d.getCodDisciplina()))
+				.findAny().orElse(null);
 		return disciplinaRetorno;
 	}
-
 
 }

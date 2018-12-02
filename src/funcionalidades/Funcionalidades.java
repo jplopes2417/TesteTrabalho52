@@ -30,7 +30,6 @@ public class Funcionalidades {
 			option = Integer.parseInt(tela.telaInicial());
 
 			switch (option) {
-
 			case 1:
 				alunos.add(new Aluno(alunos.size() + 1, tela.getTelaAdicionaAluno()));
 				break;
@@ -41,17 +40,23 @@ public class Funcionalidades {
 				Integer codigoAluno = Integer.parseInt(tela.getTelaListaAlunos(alunos));
 				Integer codigoDisciplina = Integer.parseInt(tela.getTelaListaDisciplinas(disciplinas));
 				Integer nota1 = Integer.parseInt(tela.getTelaAdicionarNota("nota 1"));
+				if (nota1 < 0) {
+					Telas.getTelaErro(null);
+				}
 				Integer nota2 = Integer.parseInt(tela.getTelaAdicionarNota("nota 2"));
-
 				Avaliacao avaliacao = new Avaliacao(Aluno.getAlunoPorCodigo(alunos, codigoAluno),
 						Disciplina.getDisciplinaPorCodigo(disciplinas, codigoDisciplina), nota1, nota2);
 				curso.getAvaliacoes().add(avaliacao);
 				break;
 			case 4:
-				tela.getTelaListagemCurso(curso);
+				Telas.getTelaListagemCurso(curso);
+				break;
+			case 0:
+				break;
+			default:
+				Telas.getTelaErro(null);
 				break;
 			}
-//			tela.telaInicial();
 		} while (option != 0);
 	}
 

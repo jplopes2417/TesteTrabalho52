@@ -42,9 +42,9 @@ public class Aluno {
 	public void setDisciplina(ArrayList<Disciplina> disciplinas) {
 		this.disciplinas = disciplinas;
 	}
-	
+
 	public static Aluno getAlunoPorCodigo(List<Aluno> alunos, int codigoAluno) {
-		Aluno alunoRetorno = alunos.stream().filter(a -> codigoAluno==(a.getCodAluno())).findAny().orElse(null);
+		Aluno alunoRetorno = alunos.stream().filter(a -> codigoAluno == (a.getCodAluno())).findAny().orElse(null);
 		return alunoRetorno;
 	}
 }
