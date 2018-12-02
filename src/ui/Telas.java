@@ -62,9 +62,5 @@ public class Telas {
 		}
 		JOptionPane.showMessageDialog(null, retorno);
 	}
-	
-	public static void getTelaErro(String mensagemErro) {
-		mensagemErro = "Opção Inválida! ";
-		JOptionPane.showMessageDialog(null, mensagemErro);
-	}
+
 }

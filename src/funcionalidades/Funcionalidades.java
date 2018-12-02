@@ -7,6 +7,7 @@ import negocio.Avaliacao;
 import negocio.Curso;
 import negocio.Disciplina;
 import ui.Telas;
+import ui.TelasErro;
 
 public class Funcionalidades {
 
@@ -37,24 +38,32 @@ public class Funcionalidades {
 				disciplinas.add(new Disciplina(disciplinas.size() + 1, tela.getTelaAdicionaDisciplina()));
 				break;
 			case 3:
+				if (alunos.isEmpty()) {
+					TelasErro.getTelaErroAlunoNaoCadastrado();
+					break;
+				} else if (disciplinas.isEmpty()) {
+					TelasErro.getTelaErroDisciplinaNaoCadastrada();
+					break;
+				}
 				Integer codigoAluno = Integer.parseInt(tela.getTelaListaAlunos(alunos));
 				Integer codigoDisciplina = Integer.parseInt(tela.getTelaListaDisciplinas(disciplinas));
 				Integer nota1 = Integer.parseInt(tela.getTelaAdicionarNota("nota 1"));
-				if (nota1 < 0) {
-					Telas.getTelaErro(null);
-				}
 				Integer nota2 = Integer.parseInt(tela.getTelaAdicionarNota("nota 2"));
 				Avaliacao avaliacao = new Avaliacao(Aluno.getAlunoPorCodigo(alunos, codigoAluno),
 						Disciplina.getDisciplinaPorCodigo(disciplinas, codigoDisciplina), nota1, nota2);
 				curso.getAvaliacoes().add(avaliacao);
 				break;
 			case 4:
+				if (curso == null) {
+					TelasErro.getTelaErroBoletim();
+					break;
+				}
 				Telas.getTelaListagemCurso(curso);
 				break;
 			case 0:
 				break;
 			default:
-				Telas.getTelaErro(null);
+				TelasErro.getTelaErro(null);
 				break;
 			}
 		} while (option != 0);
