@@ -6,6 +6,7 @@ import negocio.Aluno;
 import negocio.Avaliacao;
 import negocio.Curso;
 import negocio.Disciplina;
+import negocio.ValidacaoNotas;
 import ui.Telas;
 import ui.TelasErro;
 
@@ -47,8 +48,19 @@ public class Funcionalidades {
 				}
 				Integer codigoAluno = Integer.parseInt(tela.getTelaListaAlunos(alunos));
 				Integer codigoDisciplina = Integer.parseInt(tela.getTelaListaDisciplinas(disciplinas));
-				Integer nota1 = Integer.parseInt(tela.getTelaAdicionarNota("nota 1"));
-				Integer nota2 = Integer.parseInt(tela.getTelaAdicionarNota("nota 2"));
+				Double nota1 = Double.parseDouble(tela.getTelaAdicionarNota("nota 1"));
+				// ValidacaoNotas.ValidaNotas(nota1);
+				boolean resultado1 = ValidacaoNotas.ValidaNotas(nota1);
+				if (resultado1 == true) {
+					TelasErro.getTelaErroNotas();
+					break;
+				}
+				Double nota2 = Double.parseDouble(tela.getTelaAdicionarNota("nota 2"));
+				boolean resultado2 = ValidacaoNotas.ValidaNotas(nota2);
+				if (resultado2 == true) {
+					TelasErro.getTelaErroNotas();
+					break;
+				}
 				Avaliacao avaliacao = new Avaliacao(Aluno.getAlunoPorCodigo(alunos, codigoAluno),
 						Disciplina.getDisciplinaPorCodigo(disciplinas, codigoDisciplina), nota1, nota2);
 				curso.getAvaliacoes().add(avaliacao);

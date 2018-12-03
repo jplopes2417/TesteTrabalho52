@@ -24,5 +24,9 @@ public class TelasErro {
 		String mensagem = "Não há boletins a serem listados. ";
 		JOptionPane.showMessageDialog(null, mensagem);
 	}
-	
+
+	public static void getTelaErroNotas() {
+		String mensagem = "Nota inválida! ";
+		JOptionPane.showMessageDialog(null, mensagem);
+	}
 }

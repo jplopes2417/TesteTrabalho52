@@ -9,6 +9,7 @@ import negocio.Aluno;
 import negocio.Avaliacao;
 import negocio.Curso;
 import negocio.Disciplina;
+import negocio.Media;
 
 public class Telas {
 
@@ -57,8 +58,8 @@ public class Telas {
 					+ avaliacao.getDisciplina().getCodDisciplina() + " - " + "Nome Disciplina: "
 					+ avaliacao.getDisciplina().getNomeDisciplina() + " - " + "Nota 1: " + avaliacao.getN1() + " - "
 					+ "Nota 2: " + avaliacao.getN2() + " - " + "Media Aritmetica: "
-					+ df.format(avaliacao.calculaMediaAritmetica()) + " - " + "Media Ponderada: "
-					+ df.format(avaliacao.calculaMediaPonderada()) + "\n";
+					+ df.format(Media.calculaMediaAritmetica(avaliacao.getN1(), avaliacao.getN2())) + " - " + "Media Ponderada: "
+					+ df.format(Media.calculaMediaPonderada(avaliacao.getN1(), avaliacao.getN2())) + "\n";
 		}
 		JOptionPane.showMessageDialog(null, retorno);
 	}
