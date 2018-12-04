@@ -2,13 +2,10 @@ package negocio;
 
 public class StatusDisciplina {
 
-	public static String AlunoAprovado(double numero1, double numero2) {
-		String mensagem = "";
+	public static String alunoAprovado(double numero1, double numero2) {
 		if (numero1 > 7 || numero2 > 7) {
-			mensagem = "Aprovado! ";
-			return mensagem;
-		} else mensagem = "Reprovado! ";
-		return mensagem;
+			return "Aprovado! ";
+		}
+		return "Reprovado! ";
 	}
-	
 }

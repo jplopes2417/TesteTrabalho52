@@ -2,11 +2,11 @@ package negocio;
 
 public class ValidacaoNotas {
 
-	public boolean ValidaNotaAcima(double numero) {
+	public boolean validaNotaAcima(double numero) {
 		return numero > 10;
 	}
 	
-	public boolean ValidaNotaNegativa(double numero) {	
+	public boolean validaNotaNegativa(double numero) {	
 		return numero < 0;
 	}
 }

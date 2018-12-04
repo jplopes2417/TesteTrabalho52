@@ -5,12 +5,30 @@ import negocio.Aluno;
 import negocio.Disciplina;
 
 public class ValidacaoUtils {
-
-	public boolean VerificaExistenciaDeAluno(ArrayList<Aluno> alunos) {
+	
+	public boolean verificaExistenciaDeAluno(ArrayList<Aluno> alunos) {
 		return alunos.isEmpty();
 	}
 
-	public boolean VerificaExistenciaDeDisciplina(ArrayList<Disciplina> disciplinas) {
+	public boolean verificaExistenciaDeDisciplina(ArrayList<Disciplina> disciplinas) {
 		return disciplinas.isEmpty();
+	}
+	
+	public boolean verificaCodigoInexistenteAluno(ArrayList<Aluno> alunos, int codigo) {
+		for (Aluno aluno : alunos) {
+			if (aluno.getCodAluno() == codigo) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean verificaCodigoInexistenteDisciplina(ArrayList<Disciplina> disciplinas, int codigo) {
+		for (Disciplina disciplina : disciplinas) {
+			if (disciplina.getCodDisciplina() == codigo) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

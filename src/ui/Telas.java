@@ -50,22 +50,22 @@ public class Telas {
 		return JOptionPane.showInputDialog(retorno);
 	}
 
-	public static void getTelaListagemCurso(Curso curso) {
+	public void getTelaListagemCurso(Curso curso) {
 		DecimalFormat df = new DecimalFormat("0.00");
-		String retorno = "";
+		String retorno = "Não há boletins cadastrados. ";
 		List<Avaliacao> avaliacoes = curso.getAvaliacoes().stream()
 				.sorted((o1, o2) -> o1.getAluno().getNomeAluno().compareTo(o2.getAluno().getNomeAluno()))
 				.collect(Collectors.toList());
 
 		for (Avaliacao avaliacao : avaliacoes) {
-			retorno += "Cod aluno: " + avaliacao.getAluno().getCodAluno() + " - " + "Nome aluno: "
+			retorno = "Cod aluno: " + avaliacao.getAluno().getCodAluno() + " - " + "Nome aluno: "
 					+ avaliacao.getAluno().getNomeAluno() + " - " + "Cod Disciplina: "
 					+ avaliacao.getDisciplina().getCodDisciplina() + " - " + "Nome Disciplina: "
 					+ avaliacao.getDisciplina().getNomeDisciplina() + " - " + "Nota 1: " + avaliacao.getN1() + " - "
 					+ "Nota 2: " + avaliacao.getN2() + " - " + "Media Aritmetica: "
-					+ df.format(avaliacao.getMediaAritmetica()) + " - "
-					+ "Media Ponderada: " + df.format(avaliacao.getMediaPonderada())
-					+ "Status: " + StatusDisciplina.AlunoAprovado(avaliacao.getMediaAritmetica(), avaliacao.getMediaPonderada())
+					+ df.format(avaliacao.getMediaAritmetica()) + " - " + "Media Ponderada: " + " - "
+					+ df.format(avaliacao.getMediaPonderada()) + "Status: "
+					+ StatusDisciplina.alunoAprovado(avaliacao.getMediaAritmetica(), avaliacao.getMediaPonderada())
 					+ "\n";
 		}
 		JOptionPane.showMessageDialog(null, retorno);
