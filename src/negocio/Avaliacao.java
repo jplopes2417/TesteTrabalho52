@@ -7,7 +7,8 @@ public class Avaliacao {
 	private double mediaAritmetica;
 	private double mediaPonderada;
 
-	public Avaliacao(Aluno aluno, Disciplina disciplina, double n1, double n2, double mediaAritmetica, double mediaPonderada) {
+	public Avaliacao(Aluno aluno, Disciplina disciplina, double n1, double n2, double mediaAritmetica,
+			double mediaPonderada) {
 
 		this.aluno = aluno;
 		this.disciplina = disciplina;
@@ -15,7 +16,7 @@ public class Avaliacao {
 		this.n2 = n2;
 		this.setMediaAritmetica(mediaAritmetica);
 		this.setMediaPonderada(mediaPonderada);
-		
+
 	}
 
 	public Aluno getAluno() {

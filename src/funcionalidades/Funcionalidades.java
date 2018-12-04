@@ -7,7 +7,6 @@ import negocio.Avaliacao;
 import negocio.Curso;
 import negocio.Disciplina;
 import negocio.Media;
-import negocio.ValidacaoNotas;
 import ui.Telas;
 import utils.ValidacaoUtils;
 
@@ -18,7 +17,6 @@ public class Funcionalidades {
 	private Curso curso;
 	private Telas tela;
 	private ValidacaoUtils validacao;
-	private ValidacaoNotas vn;
 
 	public Funcionalidades() {
 		alunos = new ArrayList<Aluno>();
@@ -26,7 +24,6 @@ public class Funcionalidades {
 		curso = new Curso();
 		tela = new Telas();
 		validacao = new ValidacaoUtils();
-		vn = new ValidacaoNotas();
 	}
 
 	public void mostrarOpcoes() {
@@ -44,10 +41,20 @@ public class Funcionalidades {
 
 			switch (option) {
 			case 1:
-				alunos.add(new Aluno(alunos.size() + 1, tela.getTelaAdicionaAluno()));
+				String nomeAluno = tela.getTelaAdicionaAluno();
+				if (nomeAluno == null) {
+					option = 9;
+					break;
+				}
+				alunos.add(new Aluno(alunos.size() + 1, nomeAluno));
 				break;
 			case 2:
-				disciplinas.add(new Disciplina(disciplinas.size() + 1, tela.getTelaAdicionaDisciplina()));
+				String nomeDisciplina = tela.getTelaAdicionaDisciplina();
+				if (nomeDisciplina == null) {
+					option = 9;
+					break;
+				}
+				disciplinas.add(new Disciplina(disciplinas.size() + 1, nomeDisciplina));
 				break;
 			case 3:
 				if (validacao.verificaExistenciaDeAluno(alunos)) {
@@ -57,23 +64,33 @@ public class Funcionalidades {
 					tela.getTelaErro("Não há disciplinas cadastradas");
 					break;
 				}
-				Integer codigoAluno = Integer.parseInt(tela.getTelaListaAlunos(alunos));
+				String codigoAlunoString = tela.getTelaListaAlunos(alunos);
+				if (codigoAlunoString == null) {
+					break;
+				}
+				Integer codigoAluno = Integer.parseInt(codigoAlunoString);
 				if (validacao.verificaCodigoInexistenteAluno(alunos, codigoAluno)) {
 					tela.getTelaErro("Aluno não encontrado!");
 					break;
 				}
-				Integer codigoDisciplina = Integer.parseInt(tela.getTelaListaDisciplinas(disciplinas));
+				String codigoDisciplinaString = tela.getTelaListaDisciplinas(disciplinas);
+				if (codigoDisciplinaString == null) {
+					break;
+				}
+				Integer codigoDisciplina = Integer.parseInt(codigoDisciplinaString);
 				if (validacao.verificaCodigoInexistenteDisciplina(disciplinas, codigoDisciplina)) {
 					tela.getTelaErro("Disciplina não encontrada!");
 					break;
 				}
+				
 				Double nota1 = Double.parseDouble(tela.getTelaAdicionarNota("nota 1"));
-				if (vn.validaNotaAcima(nota1) || vn.validaNotaNegativa(nota1)) {
+				if (validacao.validaNotaAcima(nota1) || validacao.validaNotaNegativa(nota1)) {
 					tela.getTelaErro("Valor inválido! ");
 					break;
 				}
+				
 				Double nota2 = Double.parseDouble(tela.getTelaAdicionarNota("nota 2"));
-				if (vn.validaNotaAcima(nota2) || vn.validaNotaNegativa(nota2)) {
+				if (validacao.validaNotaAcima(nota2) || validacao.validaNotaNegativa(nota2)) {
 					tela.getTelaErro("Valor inválido! ");
 					break;
 				}
