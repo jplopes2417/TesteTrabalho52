@@ -6,9 +6,10 @@ import negocio.Aluno;
 import negocio.Avaliacao;
 import negocio.Curso;
 import negocio.Disciplina;
+import negocio.Media;
 import negocio.ValidacaoNotas;
 import ui.Telas;
-import ui.TelasErro;
+import utils.ValidacaoUtils;
 
 public class Funcionalidades {
 
@@ -16,12 +17,16 @@ public class Funcionalidades {
 	private ArrayList<Disciplina> disciplinas;
 	private Curso curso;
 	private Telas tela;
+	private ValidacaoUtils validacao;
+	private ValidacaoNotas vn;
 
 	public Funcionalidades() {
 		alunos = new ArrayList<Aluno>();
 		disciplinas = new ArrayList<Disciplina>();
 		curso = new Curso();
 		tela = new Telas();
+		validacao = new ValidacaoUtils();
+		vn = new ValidacaoNotas();
 	}
 
 	public void mostrarOpcoes() {
@@ -39,35 +44,35 @@ public class Funcionalidades {
 				disciplinas.add(new Disciplina(disciplinas.size() + 1, tela.getTelaAdicionaDisciplina()));
 				break;
 			case 3:
-				if (alunos.isEmpty()) {
-					TelasErro.getTelaErroAlunoNaoCadastrado();
-					break;
-				} else if (disciplinas.isEmpty()) {
-					TelasErro.getTelaErroDisciplinaNaoCadastrada();
-					break;
-				}
+				 if (validacao.VerificaExistenciaDeAluno(alunos)) {
+					 tela.getTelaErro("Não há alunos cadastrados!");
+					 break;
+				 } else if (validacao.VerificaExistenciaDeDisciplina(disciplinas)) {
+					 tela.getTelaErro("Não há disciplinas cadastradas");
+					 break;
+				 }
 				Integer codigoAluno = Integer.parseInt(tela.getTelaListaAlunos(alunos));
 				Integer codigoDisciplina = Integer.parseInt(tela.getTelaListaDisciplinas(disciplinas));
 				Double nota1 = Double.parseDouble(tela.getTelaAdicionarNota("nota 1"));
-				// ValidacaoNotas.ValidaNotas(nota1);
-				boolean resultado1 = ValidacaoNotas.ValidaNotas(nota1);
-				if (resultado1 == true) {
-					TelasErro.getTelaErroNotas();
+				if (vn.ValidaNotaAcima(nota1) || vn.ValidaNotaNegativa(nota1)) {
+					tela.getTelaErro("Valor inválido! ");
 					break;
 				}
 				Double nota2 = Double.parseDouble(tela.getTelaAdicionarNota("nota 2"));
-				boolean resultado2 = ValidacaoNotas.ValidaNotas(nota2);
-				if (resultado2 == true) {
-					TelasErro.getTelaErroNotas();
+				if (vn.ValidaNotaAcima(nota2) || vn.ValidaNotaNegativa(nota2)) {
+					tela.getTelaErro("Valor inválido! ");
 					break;
 				}
+				Double mediaAritmetica = Media.calculaMediaAritmetica(nota1, nota2);
+				Double mediaPonderada = Media.calculaMediaPonderada(nota1, nota2);
 				Avaliacao avaliacao = new Avaliacao(Aluno.getAlunoPorCodigo(alunos, codigoAluno),
-						Disciplina.getDisciplinaPorCodigo(disciplinas, codigoDisciplina), nota1, nota2);
+						Disciplina.getDisciplinaPorCodigo(disciplinas, codigoDisciplina), nota1, nota2, mediaAritmetica,
+						mediaPonderada);
 				curso.getAvaliacoes().add(avaliacao);
 				break;
 			case 4:
 				if (curso == null) {
-					TelasErro.getTelaErroBoletim();
+					tela.getTelaErro("Não há boletins a serem listados");
 					break;
 				}
 				Telas.getTelaListagemCurso(curso);
@@ -75,7 +80,7 @@ public class Funcionalidades {
 			case 0:
 				break;
 			default:
-				TelasErro.getTelaErro(null);
+				tela.getTelaErro("Opção Inválida");
 				break;
 			}
 		} while (option != 0);

@@ -2,6 +2,7 @@ package ui;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +10,7 @@ import negocio.Aluno;
 import negocio.Avaliacao;
 import negocio.Curso;
 import negocio.Disciplina;
-import negocio.Media;
+import negocio.StatusDisciplina;
 
 public class Telas {
 
@@ -52,16 +53,26 @@ public class Telas {
 	public static void getTelaListagemCurso(Curso curso) {
 		DecimalFormat df = new DecimalFormat("0.00");
 		String retorno = "";
-		for (Avaliacao avaliacao : curso.getAvaliacoes()) {
+		List<Avaliacao> avaliacoes = curso.getAvaliacoes().stream()
+				.sorted((o1, o2) -> o1.getAluno().getNomeAluno().compareTo(o2.getAluno().getNomeAluno()))
+				.collect(Collectors.toList());
+
+		for (Avaliacao avaliacao : avaliacoes) {
 			retorno += "Cod aluno: " + avaliacao.getAluno().getCodAluno() + " - " + "Nome aluno: "
 					+ avaliacao.getAluno().getNomeAluno() + " - " + "Cod Disciplina: "
 					+ avaliacao.getDisciplina().getCodDisciplina() + " - " + "Nome Disciplina: "
 					+ avaliacao.getDisciplina().getNomeDisciplina() + " - " + "Nota 1: " + avaliacao.getN1() + " - "
 					+ "Nota 2: " + avaliacao.getN2() + " - " + "Media Aritmetica: "
-					+ df.format(Media.calculaMediaAritmetica(avaliacao.getN1(), avaliacao.getN2())) + " - " + "Media Ponderada: "
-					+ df.format(Media.calculaMediaPonderada(avaliacao.getN1(), avaliacao.getN2())) + "\n";
+					+ df.format(avaliacao.getMediaAritmetica()) + " - "
+					+ "Media Ponderada: " + df.format(avaliacao.getMediaPonderada())
+					+ "Status: " + StatusDisciplina.AlunoAprovado(avaliacao.getMediaAritmetica(), avaliacao.getMediaPonderada())
+					+ "\n";
 		}
 		JOptionPane.showMessageDialog(null, retorno);
+	}
+
+	public void getTelaErro(String mensagemErro) {
+		JOptionPane.showMessageDialog(null, mensagemErro);
 	}
 
 }
